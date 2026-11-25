@@ -46,7 +46,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     env:
       TASK: ${{ inputs.task || 'assembleDebug' }}
       RUN_TESTS: ${{ inputs.run_tests == false && 'false' || 'true' }}
@@ -89,18 +89,51 @@ jobs:
             echo "LOMIPE_KEY_PASSWORD=${{ secrets.LOMIPE_KEY_PASSWORD }}" >> "$GITHUB_ENV"
           fi
 
+      # Maven/Gradle servers sometimes answer "429 Too Many Requests" to shared runners.
+      # Retrying with a growing pause usually gets past it.
       - name: Unit tests
         if: env.RUN_TESTS == 'true'
         working-directory: ${{ steps.locate.outputs.project_dir }}
-        run: chmod +x gradlew && ./gradlew --no-daemon testDebugUnitTest
+        run: |
+          chmod +x gradlew
+          for i in 1 2 3; do
+            ./gradlew --no-daemon testDebugUnitTest && exit 0
+            echo "Attempt $i failed, waiting before retry"; sleep $((i*60))
+          done
+          exit 1
 
       - name: Build
         working-directory: ${{ steps.locate.outputs.project_dir }}
-        run: chmod +x gradlew && ./gradlew --no-daemon "$TASK"
+        run: |
+          chmod +x gradlew
+          for i in 1 2 3; do
+            ./gradlew --no-daemon "$TASK" && exit 0
+            echo "Attempt $i failed, waiting before retry"; sleep $((i*60))
+          done
+          exit 1
 
       - name: Collect APKs and checksums
         run: |
           mkdir -p dist
           find "${{ steps.locate.outputs.project_dir }}" -path '*/build/outputs/apk/*' -name '*.apk' -exec cp {} dist/ \;
           if ! ls dist/*.apk >/dev/null 2>&1; then echo "::error::No APK was produced by task $TASK"; exit 1; fi
-          (cd dist && sha256sum *.apk
+          (cd dist && sha256sum *.apk > SHA256SUMS && cat SHA256SUMS)
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload reports on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-reports
+          path: |
+            **/build/reports/**
+            **/build/test-results/**
+          if-no-files-found: ignore
+          retention-days: 7
