@@ -1,0 +1,106 @@
+# Reusable Android build. Works for this repo and, via `uses:`, for any other repo:
+#   jobs:
+#     build:
+#       uses: <owner>/LomipeDevHub/.github/workflows/build-android.yml@main
+# It finds the Gradle project (or the newest project ZIP) by itself, so uploading a new version
+# never requires editing this file.
+name: Build Android APK
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      task:
+        description: Gradle task to run
+        default: assembleDebug
+        type: string
+      project_dir:
+        description: Folder containing gradlew (blank = auto-detect)
+        default: ""
+        type: string
+      run_tests:
+        description: Run unit tests before building
+        default: true
+        type: boolean
+  workflow_call:
+    inputs:
+      task: { type: string, default: assembleDebug }
+      project_dir: { type: string, default: "" }
+      run_tests: { type: boolean, default: true }
+      # Set to "<owner>/LomipeDevHub" when calling from ANOTHER repository (needs tools/locate_project.py).
+      tools_repo: { type: string, default: "" }
+    secrets:
+      LOMIPE_KEYSTORE_BASE64: { required: false }
+      LOMIPE_KEYSTORE_PASSWORD: { required: false }
+      LOMIPE_KEY_ALIAS: { required: false }
+      LOMIPE_KEY_PASSWORD: { required: false }
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TASK: ${{ inputs.task || 'assembleDebug' }}
+      RUN_TESTS: ${{ inputs.run_tests == false && 'false' || 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch locator script (only when called from another repo)
+        if: ${{ inputs.tools_repo != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.tools_repo }}
+          path: .lomipe_tools
+
+      - name: Locate Android project
+        id: locate
+        run: |
+          SCRIPT=tools/locate_project.py
+          [ -f "$SCRIPT" ] || SCRIPT=.lomipe_tools/tools/locate_project.py
+          python3 "$SCRIPT" --project-dir "${{ inputs.project_dir || vars.LOMIPE_PROJECT_DIR || '' }}"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Accept Android SDK licenses
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+
+      - name: Optional stable signing key
+        env:
+          KS_B64: ${{ secrets.LOMIPE_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/release.jks"
+            echo "LOMIPE_KEYSTORE_FILE=$RUNNER_TEMP/release.jks" >> "$GITHUB_ENV"
+            echo "LOMIPE_KEYSTORE_PASSWORD=${{ secrets.LOMIPE_KEYSTORE_PASSWORD }}" >> "$GITHUB_ENV"
+            echo "LOMIPE_KEY_ALIAS=${{ secrets.LOMIPE_KEY_ALIAS }}" >> "$GITHUB_ENV"
+            echo "LOMIPE_KEY_PASSWORD=${{ secrets.LOMIPE_KEY_PASSWORD }}" >> "$GITHUB_ENV"
+          fi
+
+      - name: Unit tests
+        if: env.RUN_TESTS == 'true'
+        working-directory: ${{ steps.locate.outputs.project_dir }}
+        run: chmod +x gradlew && ./gradlew --no-daemon testDebugUnitTest
+
+      - name: Build
+        working-directory: ${{ steps.locate.outputs.project_dir }}
+        run: chmod +x gradlew && ./gradlew --no-daemon "$TASK"
+
+      - name: Collect APKs and checksums
+        run: |
+          mkdir -p dist
+          find "${{ steps.locate.outputs.project_dir }}" -path '*/build/outputs/apk/*' -name '*.apk' -exec cp {} dist/ \;
+          if ! ls dist/*.apk >/dev/null 2>&1; then echo "::error::No APK was produced by task $TASK"; exit 1; fi
+          (cd dist && sha256sum *.apk
