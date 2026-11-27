@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 294" role="img" aria-labelledby="title desc">
+<title id="title">MaxRepo</title><desc id="desc">Build. Manage. Ship. Anywhere. Your mobile developer workspace.</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0c192d"/><stop offset="1" stop-color="#123b71"/></linearGradient><linearGradient id="accent" x2="1"><stop stop-color="#a4d7ff"/><stop offset="1" stop-color="#62adff"/></linearGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#9dc8ff" stroke-opacity=".055"/></pattern></defs>
+<rect width="960" height="294" rx="22" fill="url(#bg)"/><rect width="960" height="294" rx="22" fill="url(#grid)"/>
+<g fill="none" stroke="#7dbfff" stroke-width="2" opacity=".2"><path d="M0 48h85l45 45h70M0 246h90l55-55h43M960 34H858l-48 48h-52M960 245h-115l-50-50h-32"/><circle cx="200" cy="93" r="5"/><circle cx="188" cy="191" r="5"/><circle cx="758" cy="82" r="5"/><circle cx="763" cy="195" r="5"/></g>
+<g font-family="system-ui,Arial,sans-serif" text-anchor="middle"><text x="480" y="59" font-size="14" letter-spacing="4" font-weight="600" fill="#a7c9ed">MOBILE DEVELOPER WORKSPACE</text><text x="480" y="144" font-size="80" font-weight="800" fill="#fff" letter-spacing="-3">Max<tspan fill="url(#accent)">Repo</tspan></text><text x="480" y="189" font-size="24" font-weight="600" fill="#d9eaff">Build. Manage. Ship. Anywhere.</text><text x="480" y="225" font-size="16" fill="#a7c9ed">Your projects. Your builds. Your phone.</text></g>
+<rect x="398" y="255" width="164" height="3" rx="1.5" fill="#69b6ff" opacity=".8"/>
+</svg>
