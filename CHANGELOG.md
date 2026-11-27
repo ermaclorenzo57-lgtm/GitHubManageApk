@@ -1,6 +1,7 @@
 # Changelog
 
 ## MaxRepo 1.0.0 — official release candidate
+- Fix Android Java resource packaging conflict in the signing library (duplicate OSGi manifests). Preserve license notices and rerun emulator/JVM checks.
 - Add on-device release key creation and encrypted PKCS#12 export; explicit sensitive clipboard confirmation; JVM and Android key round-trip tests. Keep public version 1.0.0 until launch.
 - Public version reset; internal version code raised to 10000, preserving package identity.
 - Neutral classic and fine-grained GitHub token guidance.

@@ -100,4 +100,11 @@ fun BuildsScreen(vm: AppViewModel) = MaxBuilds(vm)
     shutil.copyfile(payload / "ReleaseKeyDeviceTest.kt", tests / "ReleaseKeyDeviceTest.kt")
     edit(ui / "AdvancedStudio.kt", lambda s: once(s, '"Utilities" -> Utilities(vm)', '"Utilities" -> Utilities(vm)\n            "Release signing" -> ReleaseSigningPanel()'))
     edit(app / "build.gradle.kts", lambda s: once(s, 'dependencies {', 'dependencies {\n    implementation("org.bouncycastle:bcpkix-jdk18on:1.80")'))
+    # Bouncy Castle ships duplicate Java 9 OSGi bundle metadata in three JARs.
+    # Exclude only desktop OSGi manifests; retain Android classes and license notices.
+    edit(app / "build.gradle.kts", lambda s: once(s, '    packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }', '''    packaging {
+        resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        resources.excludes += setOf("META-INF/versions/**/OSGI-INF/MANIFEST.MF", "OSGI-INF/MANIFEST.MF", "META-INF/OSGI-INF/MANIFEST.MF")
+        resources.merges += setOf("META-INF/LICENSE*", "META-INF/NOTICE*")
+    }'''))
     print("MaxRepo 1.0 UI, signing tool and JVM test classpath prepared.")
