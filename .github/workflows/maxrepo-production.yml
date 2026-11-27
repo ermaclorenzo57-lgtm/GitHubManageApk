@@ -31,6 +31,8 @@ jobs:
         env:
           PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
         run: python3 tools/prepare_public_beta.py "$PROJECT_DIR"
+      - name: Test certificate report parser
+        run: python3 -m unittest discover -s tools -p test_verify_apk_signer.py
       - name: Run unit tests
         working-directory: ${{ steps.locate.outputs.project_dir }}
         run: chmod +x gradlew && ./gradlew --no-daemon testDebugUnitTest lintRelease
@@ -74,8 +76,7 @@ jobs:
           cp "${apks[0]}" dist/MaxRepo-v1.0.0.apk
           "$signer" verify --verbose --print-certs dist/MaxRepo-v1.0.0.apk > dist/SIGNING.txt || { echo "::error::APK signature verification failed"; exit 1; }
           cat dist/SIGNING.txt
-          actual="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' dist/SIGNING.txt | tr '[:upper:]' '[:lower:]')"
-          [[ "$actual" == "$expected" ]] || { echo "::error::APK signer does not match configured certificate"; exit 1; }
+          python3 tools/verify_apk_signer.py dist/SIGNING.txt "$expected"
           echo "APK signing certificate verified."
           "$aapt" dump badging dist/MaxRepo-v1.0.0.apk > "$RUNNER_TEMP/maxrepo-badging.txt"
           package_line="$(grep -m1 "^package:" "$RUNNER_TEMP/maxrepo-badging.txt")"
