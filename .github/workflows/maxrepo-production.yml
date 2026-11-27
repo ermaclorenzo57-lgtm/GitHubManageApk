@@ -38,6 +38,7 @@ jobs:
         working-directory: ${{ steps.locate.outputs.project_dir }}
         env:
           KS_B64: ${{ secrets.LOMIPE_KEYSTORE_BASE64 }}
+          EXPECTED_CERT: ${{ vars.MAXREPO_CERT_SHA256 }}
           LOMIPE_KEYSTORE_PASSWORD: ${{ secrets.LOMIPE_KEYSTORE_PASSWORD }}
           LOMIPE_KEY_ALIAS: ${{ secrets.LOMIPE_KEY_ALIAS }}
           LOMIPE_KEY_PASSWORD: ${{ secrets.LOMIPE_KEY_PASSWORD }}
@@ -48,6 +49,14 @@ jobs:
           export LOMIPE_KEYSTORE_FILE="$RUNNER_TEMP/maxrepo-release.jks"
           trap 'rm -f "$LOMIPE_KEYSTORE_FILE"' EXIT
           printf '%s' "$KS_B64" | base64 --decode > "$LOMIPE_KEYSTORE_FILE"
+          expected="$(printf '%s' "$EXPECTED_CERT" | tr -d ':[:space:]' | tr '[:upper:]' '[:lower:]')"
+          [[ "$expected" =~ ^[a-f0-9]{64}$ ]] || { echo "::error::Invalid configured certificate fingerprint"; exit 1; }
+          actual="$(keytool -exportcert -keystore "$LOMIPE_KEYSTORE_FILE" -alias "$LOMIPE_KEY_ALIAS" -storepass:env LOMIPE_KEYSTORE_PASSWORD | sha256sum | cut -d' ' -f1)"
+          if [[ "$actual" != "$expected" ]]; then
+            echo "::error::Configured keystore certificate does not match MAXREPO_CERT_SHA256"
+            exit 1
+          fi
+          echo "Keystore certificate fingerprint verified."
           ./gradlew --no-daemon assembleRelease
       - name: Verify signer, package and version
         env:
@@ -56,18 +65,22 @@ jobs:
         run: |
           set -euo pipefail
           expected="$(printf '%s' "$EXPECTED_CERT" | tr -d ':[:space:]' | tr '[:upper:]' '[:lower:]')"
-          [[ "$expected" =~ ^[a-f0-9]{64}$ ]]
+          [[ "$expected" =~ ^[a-f0-9]{64}$ ]] || { echo "::error::Invalid configured certificate fingerprint"; exit 1; }
           signer="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -1)"
           aapt="$(dirname "$signer")/aapt"
           mapfile -t apks < <(find "$PROJECT_DIR/app/build/outputs/apk/release" -name '*.apk' -type f)
-          test "${#apks[@]}" -eq 1
+          [[ "${#apks[@]}" -eq 1 ]] || { echo "::error::Expected exactly one release APK, found ${#apks[@]}"; exit 1; }
           mkdir -p dist
           cp "${apks[0]}" dist/MaxRepo-v1.0.0.apk
-          "$signer" verify --verbose --print-certs dist/MaxRepo-v1.0.0.apk > dist/SIGNING.txt
+          "$signer" verify --verbose --print-certs dist/MaxRepo-v1.0.0.apk > dist/SIGNING.txt || { echo "::error::APK signature verification failed"; exit 1; }
+          cat dist/SIGNING.txt
           actual="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' dist/SIGNING.txt | tr '[:upper:]' '[:lower:]')"
-          test "$actual" = "$expected"
+          [[ "$actual" == "$expected" ]] || { echo "::error::APK signer does not match configured certificate"; exit 1; }
+          echo "APK signing certificate verified."
           "$aapt" dump badging dist/MaxRepo-v1.0.0.apk > "$RUNNER_TEMP/maxrepo-badging.txt"
-          grep -F "package: name='com.lomipe.devhub' versionCode='10001' versionName='1.0.0'" "$RUNNER_TEMP/maxrepo-badging.txt"
+          package_line="$(grep -m1 "^package:" "$RUNNER_TEMP/maxrepo-badging.txt")"
+          echo "$package_line"
+          [[ "$package_line" == *"name='com.lomipe.devhub'"* && "$package_line" == *"versionCode='$LOMIPE_VERSION_CODE'"* && "$package_line" == *"versionName='$LOMIPE_VERSION_NAME'"* ]] || { echo "::error::APK package or version mismatch"; exit 1; }
           (cd dist && sha256sum MaxRepo-v1.0.0.apk > SHA256SUMS)
       - uses: actions/upload-artifact@v4
         with:
