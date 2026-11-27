@@ -30,6 +30,8 @@ def prepare(root):
     apply(root)
     from phase3 import apply as apply_phase3
     apply_phase3(root)
+    from repository_admin import apply as apply_admin
+    apply_admin(root)
     # Approved independent dog-and-folder artwork, supplied by the maintainer.
     # Keep the complete design inside the adaptive launcher icon's safe area.
     import hashlib
