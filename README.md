@@ -2,7 +2,7 @@
 
 **Your development workspace. In your pocket.**
 
-An Android-first workspace for GitHub repositories, Actions runs, APK artifacts, and mobile development. The current source archive is v3.0. The proposed public beta is 3.1.0-beta.1 (version code 4), pending validation.
+An Android-first workspace for GitHub repositories, Actions runs, APK artifacts, and mobile development. The current source archive is v3.0. The proposed public beta is 3.1.0-beta.2 (version code 5), pending validation.
 
 ## Public beta status
 

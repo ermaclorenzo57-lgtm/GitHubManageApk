@@ -1,6 +1,6 @@
 # Public beta release gate
 
-Version: proposed 3.1.0-beta.1; version code 4 (existing archive reports 3.0.0/code 3). Confirm no installed test build has a higher code before release.
+Version: proposed 3.1.0-beta.2; version code 5 (existing archive reports 3.0.0/code 3). Confirm no installed test build has a higher code before release.
 
 ## 1. Security
 - [ ] Review all current source and Git history for secrets, including older ZIPs; rotate anything exposed.
@@ -20,7 +20,7 @@ Version: proposed 3.1.0-beta.1; version code 4 (existing archive reports 3.0.0/c
 - [ ] Set a protected release environment, stable signing credentials and offline backup of the signing key. Never commit the key or send it in chat.
 - [ ] Run release unit tests, lint and build; verify APK signature and signing certificate fingerprint; record SHA-256.
 - [ ] Confirm version code, app ID, upgrade compatibility and device install.
-- [ ] Implement and test update detection against the releases-only repo before advertising it.
+- [ ] Verify implemented update detection against the current public repo; switch endpoint to dedicated release repo and retest before launch.
 - [ ] Finalize privacy notice, proprietary distribution terms (or explicit open-source license if chosen), and support channel.
 
 ## 4. Beta test

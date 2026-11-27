@@ -26,6 +26,8 @@ def prepare(root):
     manifest = (app / "AndroidManifest.xml").read_text(encoding="utf-8")
     if 'android:allowBackup="false"' not in manifest or 'android:usesCleartextTraffic="false"' not in manifest:
         raise SystemExit("Manifest security guard failed")
+    from beta2 import apply
+    apply(root)
     print("Public beta candidate overlay applied. Android tests are still required.")
 
 if __name__ == "__main__":
