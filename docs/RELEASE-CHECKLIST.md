@@ -1,37 +1,26 @@
-# Public beta release gate
+# MaxRepo 1.0 release gate
 
-Version: proposed 3.1.0-beta.2; version code 5 (existing archive reports 3.0.0/code 3). Confirm no installed test build has a higher code before release.
+Display version 1.0.0. Verified candidate version code 10001, package com.lomipe.devhub.
 
-## 1. Security
-- [ ] Review all current source and Git history for secrets, including older ZIPs; rotate anything exposed.
-- [ ] Verify token encryption, account switching, logout, redacted logs and cache isolation.
-- [ ] Verify host/scheme/port credential restrictions and redirect tests.
-- [ ] Review dependencies and Gradle wrapper integrity.
-- [ ] Verify permissions, backup rules and user confirmation before uploading, deleting or installing.
-- [ ] Review third-party licenses and redistribution rights.
+## Verified
+- [x] Production key configured and matching certificate verified.
+- [x] Unit tests, release lint, APK compilation and signature verification passed in [production run](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46023087566).
+- [x] Version, package identity and checksum verified; production artifact uploaded.
+- [x] Android API 29 and 35 emulator tests passed on the signing-tool source at commit e037371, [test run](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46016317640).
 
-## 2. Branding / usability
-- [ ] Review updated name/icon, onboarding, permission prompts and all screens on a small phone.
-- [ ] Verify error and offline states; ensure destructive actions require deliberate confirmation.
-- [ ] Capture real screenshots; do not substitute mock screenshots for the shipped app.
+## Security and privacy
+- [ ] Scan current source, both legacy ZIPs and public Git history for secrets; revoke and rotate any exposed credentials.
+- [ ] Verify account isolation, logout, redacted logs, cache, redirect and exported file behavior.
+- [ ] Review dependencies, actions and third-party licenses; check permissions and update installation handling.
+- [ ] Protect main with required checks/review where available. Restrict production environment to main; retain encrypted offline signing-key backup.
+- [ ] Finalize privacy notice, supported distribution terms and security contact.
 
-## 3. Release infrastructure
-- [ ] Create a private source repository and separate public releases-only repository via GitHub settings; verify permissions. Do not assume removing ZIPs erases public history.
-- [ ] Set a protected release environment, stable signing credentials and offline backup of the signing key. Never commit the key or send it in chat.
-- [ ] Run release unit tests, lint and build; verify APK signature and signing certificate fingerprint; record SHA-256.
-- [ ] Confirm version code, app ID, upgrade compatibility and device install.
-- [ ] Verify implemented update detection against the current public repo; switch endpoint to dedicated release repo and retest before launch.
-- [ ] Finalize privacy notice, proprietary distribution terms (or explicit open-source license if chosen), and support channel.
+## Testing and distribution
+- [ ] Fresh install the signed APK and verify a later signed build with a higher version code updates without uninstalling or losing data.
+- [ ] Complete physical-device, slow-network and accessibility testing; capture real screenshots.
+- [ ] Decide source visibility and create a dedicated public download repository if keeping source private. Public history cannot be made retroactively secret.
+- [ ] Configure and test the update endpoint against the chosen release repository before launch.
+- [ ] Owner approves exact APK and checksum; create GitHub Release v1.0.0 only when authorized.
+- [ ] Preserve the signed artifact and test evidence before removing old Actions runs.
 
-## 4. Beta test
-- [ ] Run the device matrix and cases in BETA-TESTING.md.
-- [ ] Resolve all credential leaks, crashes, data loss and other release blockers.
-- [ ] Obtain tester feedback and record verified results.
-
-## 5. Launch
-- [ ] Owner approves exact signed APK and checksum.
-- [ ] Publish as a pre-release on the releases-only repo; add install instructions and actual screenshots.
-- [ ] Enable landing page hosting and link to the exact release.
-- [ ] Gather feedback; consider Play distribution only after reviewing store policies.
-
-No box may be marked complete solely because a script or document exists.
+No official release has been published. Passing CI does not establish a complete security audit.

@@ -2,21 +2,31 @@
 
 **Build. Manage. Ship. Anywhere.**
 
-An independent GitHub mobile workspace for Android developers: manage repositories, monitor Actions, download artifacts, access quick developer tools, and work from your phone. Not affiliated with GitHub. The current source archive is v3.0. The first public release candidate is 1.0.0 (version code 10001), pending validation.
+An independent GitHub mobile workspace for Android developers. Manage repositories, monitor Actions, download APK artifacts, access local developer tools, and work from your phone. Not affiliated with GitHub.
 
-## Public beta status
+## MaxRepo 1.0.0
 
-Not yet approved for distribution. No production APK is being advertised here. Review [release readiness](docs/RELEASE-CHECKLIST.md) and [security](SECURITY.md).
+First public release candidate, Android 10+ (API 29). Internet is needed for GitHub operations; local Studio tools can work without an account.
 
-- Manage repositories and view branches, files and workflows.
-- Monitor build runs and download APK artifacts.
-- Import projects and use development tools.
-- Android 10+ (API 29); GitHub access requires internet.
+The production APK was built and verified in [signing run 46023087566](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46023087566) (commit `917105a`, internal version code 10001). This is a test artifact, not an official published release. Public distribution remains pending owner approval, physical-device upgrade testing, security review and release documentation.
 
-Use a narrowly scoped GitHub token for only the repositories you intend to manage. Never post a token, keystore, log containing secrets, or private repository contents in a public issue.
+- Repositories, branches, files and workflows.
+- Actions monitoring, build logs and artifact downloads.
+- Local developer Studio, including APK analysis and signing-key generation.
+- GitHub personal access tokens: classic or fine-grained, with only the access needed.
 
-[Beta guide](docs/BETA-TESTING.md) · [Privacy draft](PRIVACY.md) · [Changelog](CHANGELOG.md) · [Landing page source](docs/index.html)
+Do not post tokens, private signing keys, passwords, or private project information in issues.
 
-Build artifacts are development builds until release approval. The source repository currently is public and contains source archives. A separate releases-only repository is planned; visibility and distribution have not been changed by this preparation.
+## Repository structure
 
-[Production signing and upgrade guide](docs/MAXREPO-1.0-SIGNING.md)
+| Path | Purpose |
+| --- | --- |
+| `LomipeDevHub_v3.0_source.zip` | Required baseline Android source; not a downloadable current APK. |
+| `tools/` | Source overlays, preparation and verification scripts. |
+| `.github/workflows/` | Development builds, emulator tests and manual production signing. |
+| `docs/` | Release readiness, privacy/security guidance, signing and testing. |
+| `archive/legacy/` | Historical development material; not used for current builds. |
+
+The current source is assembled from the baseline archive and overlays. The repository is public; a separate releases-only repository is planned but has not been created.
+
+[Changelog](CHANGELOG.md) · [Security](SECURITY.md) · [Privacy draft](PRIVACY.md) · [Release checklist](docs/RELEASE-CHECKLIST.md) · [Signing and migration](docs/MAXREPO-1.0-SIGNING.md)

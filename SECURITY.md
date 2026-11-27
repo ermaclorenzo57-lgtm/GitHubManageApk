@@ -6,7 +6,7 @@ Use the repository's private vulnerability reporting feature if enabled. Otherwi
 ## Credential design (v3.0 source inspection)
 SecureTokenStore uses Android Keystore AES-256-GCM, app-private ciphertext, and account-bound associated data. Backup is disabled and cleartext network traffic is disabled in the manifest. These are code observations, not independent certification.
 
-Use fine-grained tokens limited to selected repositories. Grant read permissions for viewing; grant write permissions only when an intentional feature requires them. Keep a short expiry and revoke unused credentials. Do not reuse a broad administrative token.
+Use a classic or fine-grained personal access token with the minimum necessary access. Prefer fine-grained tokens limited to selected repositories where supported. Grant read permissions for viewing; grant write permissions only when an intentional feature requires them. Keep a short expiry and revoke unused credentials. Do not reuse a broad administrative token.
 
 ## Pending release checks
 Verify account isolation, logout, cache invalidation, redaction, redirect handling, APK signature verification, dependency integrity and historical secret exposure. Review the public Git history, including both archives. If any real secret was committed, revoke/rotate it; deleting a file alone is insufficient.

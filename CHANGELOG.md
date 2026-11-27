@@ -1,34 +1,16 @@
 # Changelog
 
-## MaxRepo 1.0.0 — official release candidate
-- Fix Android Java resource packaging conflict in the signing library (duplicate OSGi manifests). Preserve license notices and rerun emulator/JVM checks.
-- Add on-device release key creation and encrypted PKCS#12 export; explicit sensitive clipboard confirmation; JVM and Android key round-trip tests. Keep public version 1.0.0 until launch.
-- Public version reset; internal version code raised to 10000, preserving package identity.
-- Neutral classic and fine-grained GitHub token guidance.
-- Protected manual production-signing workflow, certificate fingerprint verification and APK checksum.
-- Production key setup, physical-device update testing and publishing remain pending.
+## 1.0.0 — first public release candidate (not published)
 
+- Independent MaxRepo branding, GitHub-inspired light/dark UI and responsive navigation.
+- Repository management, GitHub Actions monitor and artifact downloads.
+- Local Studio tools, including portable encrypted signing-key creation.
+- Support for classic and fine-grained GitHub personal access tokens.
+- Automatic release checking, account isolation improvements and encrypted token storage.
+- Permanent signing, certificate verification and SHA-256 artifact checksum.
+- Verified production build: run 46023087566, commit 917105a, version code 10001.
+- Physical-device upgrade testing, comprehensive security review and owner-approved publication remain pending.
 
-## MaxRepo 3.2.0-beta.1 — Phase 3 candidate
-- Rebrand display name and launcher art; preserve application ID and storage compatibility.
-- GitHub-inspired dark/light palettes, five aligned navigation tabs, settings in header, dashboard, repo cards, filtered Actions cards, grouped Studio, files empty state.
-- Independent GitHub mobile workspace positioning. No official affiliation implied.
-- Address JVM test compile failure by exposing the JDK HTTP server API only to the JVM test classpath; rerun all checks.
-- Actual device screenshots and production distribution still pending.
+All pre-launch improvements continue to display 1.0.0. Increase the internal version code for newer installable builds; do not change the permanent package ID or signing key.
 
-## 3.1.0-beta.2 — candidate, not released
-- Replace letter placeholders with equal navigation tabs and single-line labels; use Files for Downloads.
-- Align Studio tool cards, repo rows and screen headings; replace persistent messages with snackbars.
-- Add signed-out onboarding and public release checks (manual install, no GitHub credential transmitted).
-- Cancel outstanding account operations on switching/signing out; clear old account presentation state and reject missing credentials.
-- Add release version/origin unit tests and Android emulator layout smoke tests for API 29 and 35.
-- Physical device, signing, historical secret and end-to-end security verification remain pending.
-
-## 3.1.0-beta.1 — proposed, not released
-- Prepare release branding and origin-bound GitHub authentication checks.
-- Add beta documentation, release checklist and landing page.
-- Plan reproducible signed APK distribution and checksum verification.
-- Pending: Android build and regression results, device tests, signing, update detection and release-only repository.
-
-## 3.0.0
-Existing Android source archive. See its UPGRADE-v3.md and validation reports; prior reports are not evidence that the new beta has passed.
+[Historical development changelog](archive/legacy/CHANGELOG-development.md)
