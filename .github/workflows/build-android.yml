@@ -85,7 +85,7 @@ jobs:
           echo "LOMIPE_VERSION_CODE=10005" >> "$GITHUB_ENV"
           echo "LOMIPE_VERSION_NAME=1.0.0" >> "$GITHUB_ENV"
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
 
       - name: Accept Android SDK licenses
         run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
