@@ -30,6 +30,29 @@ def prepare(root):
     apply(root)
     from phase3 import apply as apply_phase3
     apply_phase3(root)
+    # Approved independent dog-and-folder artwork, supplied by the maintainer.
+    # Keep the complete design inside the adaptive launcher icon's safe area.
+    import hashlib
+    import shutil
+    artwork = Path(__file__).parent / "phase3" / "maxrepo_launcher_art.webp"
+    if hashlib.sha256(artwork.read_bytes()).hexdigest() != "c7b25955d669abcea039c1aa772f0dcf89c0063710f453e534dd0fe1d3e5e601":
+        raise SystemExit("Approved launcher artwork checksum mismatch")
+    drawable = app / "res/drawable-nodpi"
+    drawable.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(artwork, drawable / "maxrepo_launcher_art.webp")
+    (app / "res/drawable/ic_launcher_foreground.xml").write_text(
+        '<inset xmlns:android="http://schemas.android.com/apk/res/android" '
+        'android:drawable="@drawable/maxrepo_launcher_art" android:inset="16.6667%" />\n',
+        encoding="utf-8")
+    (app / "res/mipmap-anydpi-v26/ic_launcher.xml").write_text(
+        '<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">\n'
+        '    <background android:drawable="@drawable/maxrepo_launcher_background" />\n'
+        '    <foreground android:drawable="@drawable/ic_launcher_foreground" />\n'
+        '</adaptive-icon>\n', encoding="utf-8")
+    (app / "res/drawable/maxrepo_launcher_background.xml").write_text(
+        '<shape xmlns:android="http://schemas.android.com/apk/res/android">\n'
+        '    <gradient android:startColor="#113D80" android:endColor="#36A2D4" android:angle="90" />\n'
+        '</shape>\n', encoding="utf-8")
     print("Public beta candidate overlay applied. Android tests are still required.")
 
 if __name__ == "__main__":

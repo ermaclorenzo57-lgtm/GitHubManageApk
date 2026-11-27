@@ -8,7 +8,7 @@ An independent GitHub mobile workspace for Android developers. Manage repositori
 
 First public release candidate, Android 10+ (API 29). Internet is needed for GitHub operations; local Studio tools can work without an account.
 
-The production APK was built and verified in [signing run 46023087566](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46023087566) (commit `917105a`, internal version code 10001). This is a test artifact, not an official published release. Public distribution remains pending owner approval, physical-device upgrade testing, security review and release documentation.
+The production APK was built and verified in [signing run 46023087566](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46023087566) (commit `917105a`, internal version code 10001). This is a test artifact, not an official published release. The subsequent build 10002 adds the approved launcher artwork and is pending signed upgrade validation. Public distribution remains pending owner approval, physical-device upgrade testing, security review and release documentation.
 
 - Repositories, branches, files and workflows.
 - Actions monitoring, build logs and artifact downloads.

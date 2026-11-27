@@ -2,6 +2,7 @@
 
 ## 1.0.0 — first public release candidate (not published)
 
+- Build 10002 (pending validation): maintainer-approved dog-and-folder launcher artwork without the GitHub logo; same display version and signing identity.
 - Independent MaxRepo branding, GitHub-inspired light/dark UI and responsive navigation.
 - Repository management, GitHub Actions monitor and artifact downloads.
 - Local Studio tools, including portable encrypted signing-key creation.
