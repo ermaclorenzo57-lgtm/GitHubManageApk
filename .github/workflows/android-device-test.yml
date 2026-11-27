@@ -48,7 +48,7 @@ jobs:
           profile: pixel_2
           disable-animations: true
           script: cd "$PROJECT_DIR" && chmod +x gradlew && ./gradlew --no-daemon connectedDebugAndroidTest
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: device-results-api-${{ matrix.api }}
