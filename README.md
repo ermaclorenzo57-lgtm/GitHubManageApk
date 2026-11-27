@@ -2,7 +2,7 @@
 
 **Build. Manage. Ship. Anywhere.**
 
-An independent GitHub mobile workspace for Android developers: manage repositories, monitor Actions, download artifacts, access quick developer tools, and work from your phone. Not affiliated with GitHub. The current source archive is v3.0. The first public release candidate is 1.0.0 (version code 10000), pending validation.
+An independent GitHub mobile workspace for Android developers: manage repositories, monitor Actions, download artifacts, access quick developer tools, and work from your phone. Not affiliated with GitHub. The current source archive is v3.0. The first public release candidate is 1.0.0 (version code 10001), pending validation.
 
 ## Public beta status
 

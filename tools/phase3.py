@@ -93,4 +93,11 @@ fun BuildsScreen(vm: AppViewModel) = MaxBuilds(vm)
     edit(ui / "MainScreens.kt", token_copy)
     # Keep local history and credentials intact; only clear stale cached release metadata after the rebrand.
     edit(ui / "UpdateState.kt", lambda s: s.replace('getSharedPreferences("release_check"', 'getSharedPreferences("maxrepo_release_check_v1"'))
-    print("MaxRepo 1.0 UI and JVM test classpath prepared.")
+    # Signing tool: portable encrypted PKCS12 generated locally, never automatically uploaded.
+    shutil.copyfile(payload / "ReleaseKey.kt", app / "src/main/java/com/lomipe/devhub/core/ReleaseKey.kt")
+    shutil.copyfile(payload / "ReleaseSigningPanel.kt", ui / "ReleaseSigningPanel.kt")
+    shutil.copyfile(payload / "ReleaseKeyTest.kt", app / "src/test/java/com/lomipe/devhub/core/ReleaseKeyTest.kt")
+    shutil.copyfile(payload / "ReleaseKeyDeviceTest.kt", tests / "ReleaseKeyDeviceTest.kt")
+    edit(ui / "AdvancedStudio.kt", lambda s: once(s, '"Utilities" -> Utilities(vm)', '"Utilities" -> Utilities(vm)\n            "Release signing" -> ReleaseSigningPanel()'))
+    edit(app / "build.gradle.kts", lambda s: once(s, 'dependencies {', 'dependencies {\n    implementation("org.bouncycastle:bcpkix-jdk18on:1.80")'))
+    print("MaxRepo 1.0 UI, signing tool and JVM test classpath prepared.")

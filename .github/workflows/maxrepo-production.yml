@@ -14,7 +14,7 @@ jobs:
     environment: maxrepo-production
     env:
       LOMIPE_VERSION_NAME: '1.0.0'
-      LOMIPE_VERSION_CODE: '10000'
+      LOMIPE_VERSION_CODE: '10001'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -67,7 +67,7 @@ jobs:
           actual="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' dist/SIGNING.txt | tr '[:upper:]' '[:lower:]')"
           test "$actual" = "$expected"
           "$aapt" dump badging dist/MaxRepo-v1.0.0.apk > "$RUNNER_TEMP/maxrepo-badging.txt"
-          grep -F "package: name='com.lomipe.devhub' versionCode='10000' versionName='1.0.0'" "$RUNNER_TEMP/maxrepo-badging.txt"
+          grep -F "package: name='com.lomipe.devhub' versionCode='10001' versionName='1.0.0'" "$RUNNER_TEMP/maxrepo-badging.txt"
           (cd dist && sha256sum MaxRepo-v1.0.0.apk > SHA256SUMS)
       - uses: actions/upload-artifact@v4
         with:

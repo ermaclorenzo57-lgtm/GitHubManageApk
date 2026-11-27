@@ -23,7 +23,8 @@ fun MaxStudioGrid(onTool: (String) -> Unit) {
             Triple("Build templates", "Create workflow files", Icons.Filled.Build)),
         "Workspace tools" to listOf(Triple("Encrypted backup", "Protect local work", Icons.Filled.Lock),
             Triple("AI handoff", "Prepare context", Icons.Filled.Share),
-            Triple("Utilities", "Developer helpers", Icons.Filled.Settings))
+            Triple("Utilities", "Developer helpers", Icons.Filled.Settings),
+            Triple("Release signing", "Create permanent signing key", Icons.Filled.Lock))
     )
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val columns = if (maxWidth < 300.dp || LocalDensity.current.fontScale > 1.35f) 1 else 2

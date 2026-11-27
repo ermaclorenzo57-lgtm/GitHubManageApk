@@ -82,7 +82,7 @@ jobs:
           PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
         run: |
           python3 tools/prepare_public_beta.py "$PROJECT_DIR"
-          echo "LOMIPE_VERSION_CODE=10000" >> "$GITHUB_ENV"
+          echo "LOMIPE_VERSION_CODE=10001" >> "$GITHUB_ENV"
           echo "LOMIPE_VERSION_NAME=1.0.0" >> "$GITHUB_ENV"
 
       - uses: gradle/actions/setup-gradle@v4
