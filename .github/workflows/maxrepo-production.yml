@@ -85,7 +85,7 @@ jobs:
           echo "$package_line"
           [[ "$package_line" == *"name='com.lomipe.devhub'"* && "$package_line" == *"versionCode='$LOMIPE_VERSION_CODE'"* && "$package_line" == *"versionName='$LOMIPE_VERSION_NAME'"* ]] || { echo "::error::APK package or version mismatch"; exit 1; }
           (cd dist && sha256sum MaxRepo-v1.0.0.apk > SHA256SUMS)
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: maxrepo-1.0.0-production
           path: dist/*

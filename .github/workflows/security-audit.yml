@@ -60,7 +60,7 @@ jobs:
         run: python3 tools/audit_osv.py audit-results
       - name: Upload public dependency inventory (no credentials)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: maxrepo-dependency-audit
           path: audit-results/
