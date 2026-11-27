@@ -14,7 +14,7 @@ jobs:
     environment: maxrepo-production
     env:
       LOMIPE_VERSION_NAME: '1.0.0'
-      LOMIPE_VERSION_CODE: '10002'
+      LOMIPE_VERSION_CODE: '10003'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,7 +30,9 @@ jobs:
       - name: Prepare source
         env:
           PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
-        run: python3 tools/prepare_public_beta.py "$PROJECT_DIR"
+        run: |
+          python3 tools/prepare_public_beta.py "$PROJECT_DIR"
+          python3 tools/check_gradle_wrapper.py "$PROJECT_DIR"
       - name: Test certificate report parser
         run: python3 -m unittest discover -s tools -p test_verify_apk_signer.py
       - name: Run unit tests

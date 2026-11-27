@@ -99,7 +99,7 @@ fun BuildsScreen(vm: AppViewModel) = MaxBuilds(vm)
     shutil.copyfile(payload / "ReleaseKeyTest.kt", app / "src/test/java/com/lomipe/devhub/core/ReleaseKeyTest.kt")
     shutil.copyfile(payload / "ReleaseKeyDeviceTest.kt", tests / "ReleaseKeyDeviceTest.kt")
     edit(ui / "AdvancedStudio.kt", lambda s: once(s, '"Utilities" -> Utilities(vm)', '"Utilities" -> Utilities(vm)\n            "Release signing" -> ReleaseSigningPanel()'))
-    edit(app / "build.gradle.kts", lambda s: once(s, 'dependencies {', 'dependencies {\n    implementation("org.bouncycastle:bcpkix-jdk18on:1.80")'))
+    edit(app / "build.gradle.kts", lambda s: once(s, 'dependencies {', 'dependencies {\n    implementation("org.bouncycastle:bcpkix-jdk18on:1.87")'))
     # Bouncy Castle ships duplicate Java 9 OSGi bundle metadata in three JARs.
     # Exclude only desktop OSGi manifests; retain Android classes and license notices.
     edit(app / "build.gradle.kts", lambda s: once(s, '    packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }', '''    packaging {

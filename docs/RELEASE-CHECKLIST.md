@@ -11,6 +11,9 @@ Display version 1.0.0. Verified candidate version code 10002, package com.lomipe
 - [x] Build 10002 passed production signing and verification in [run 46029050038](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46029050038).
 
 ## Security and privacy
+- [x] Initial history/archive secret scan and wrapper check passed; [audit findings](SECURITY-AUDIT-1.0.md) recorded.
+- [ ] Resolve or document all security findings; first OSV audit reported 64 advisory matches.
+- [ ] Validate remediation candidate 10003 with new tests and permanent signing.
 - [x] Added automated audit workflow and CodeQL configuration; execution and findings review pending.
 - [ ] Scan current source, both legacy ZIPs and public Git history for secrets; revoke and rotate any exposed credentials.
 - [ ] Verify account isolation, logout, redacted logs, cache, redirect and exported file behavior.

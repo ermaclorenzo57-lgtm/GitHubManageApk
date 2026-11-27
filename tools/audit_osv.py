@@ -13,6 +13,9 @@ components = [{"type": "library", "group": g, "name": n, "version": v,
                "purl": f"pkg:maven/{g}/{n}@{v}"} for g,n,v in packages]
 (root / "sbom.cdx.json").write_text(json.dumps({"bomFormat":"CycloneDX",
     "specVersion":"1.5","version":1,"components":components}, indent=2))
+scopes = {}
+for scope, g, n, v in rows:
+    scopes.setdefault((g,n,v), set()).add(scope)
 findings = []
 for start in range(0, len(packages), 100):
     batch = packages[start:start+100]
@@ -29,10 +32,10 @@ for start in range(0, len(packages), 100):
         if result.get("next_page_token"):
             raise SystemExit("Paginated OSV response requires additional review")
         for vuln in result.get("vulns", []):
-            findings.append({"package":f"{g}:{n}","version":v,"advisory":vuln["id"]})
+            findings.append({"package":f"{g}:{n}","version":v,"advisory":vuln["id"],"scopes":sorted(scopes[(g,n,v)])})
 (root / "osv-findings.json").write_text(json.dumps(findings, indent=2))
 print(f"Checked {len(packages)} resolved Maven coordinates; {len(findings)} advisory matches")
 for finding in findings:
-    print(finding["package"], finding["version"], finding["advisory"])
+    print(finding["package"], finding["version"], finding["advisory"], ",".join(finding["scopes"]))
 if findings:
     raise SystemExit("Known vulnerabilities require review before release")

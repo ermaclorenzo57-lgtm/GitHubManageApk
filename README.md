@@ -71,9 +71,9 @@ I'm preparing clean screenshots using demo repositories so no account credential
 
 I take the protection of developer accounts seriously. MaxRepo uses Android Keystore-backed token storage and HTTPS for GitHub communication. The APK signing tools create encrypted keystores locally. Never share a personal access token, signing password or private key.
 
-Automated security and dependency checks are being established; the audit is still in progress. I won't claim that the app is completely secure simply because automated tests pass.
+Automated security and dependency checks are running. Initial dependency findings are being addressed before the official release. I won't claim that the app is completely secure simply because automated tests pass.
 
-[Privacy notice (pre-release)](PRIVACY.md) · [Security reporting](SECURITY.md)
+[Privacy notice (pre-release)](PRIVACY.md) · [Security reporting](SECURITY.md) · [Audit progress](docs/SECURITY-AUDIT-1.0.md)
 
 ## Frequently asked questions
 
