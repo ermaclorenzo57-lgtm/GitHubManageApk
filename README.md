@@ -67,13 +67,19 @@ For supported GitHub workflows, builds run on GitHub Actions rather than on your
 
 The app brings together five main areas: **Home · Repos · Builds · Files · Studio**. It includes light and dark themes and developer tools designed for touch screens.
 
-I'm preparing clean screenshots using demo repositories so no account credentials or private project information are displayed.
+Earlier interface previews, with account identifiers and private repository names redacted. The final build includes the expanded repository management screen.
+
+<p align="center">
+  <img src="docs/assets/screenshots/repositories.png" width="30%" alt="Repositories preview">
+  <img src="docs/assets/screenshots/studio.png" width="30%" alt="Developer Studio preview">
+  <img src="docs/assets/screenshots/settings.png" width="30%" alt="Settings preview">
+</p>
 
 ## Security & privacy
 
 I take the protection of developer accounts seriously. MaxRepo uses Android Keystore-backed token storage and HTTPS for GitHub communication. The APK signing tools create encrypted keystores locally. Never share a personal access token, signing password or private key.
 
-Automated security and dependency checks are running. Initial dependency findings are being addressed before the official release. I won't claim that the app is completely secure simply because automated tests pass.
+Automated build, secret scanning, dependency audit, CodeQL and emulator workflows passed for the final candidate's feature pull request. Physical-device verification and release review remain pending. I won't claim that the app is completely secure simply because automated tests pass.
 
 [Privacy notice (pre-release)](PRIVACY.md) · [Security reporting](SECURITY.md) · [Audit progress](docs/SECURITY-AUDIT-1.0.md)
 

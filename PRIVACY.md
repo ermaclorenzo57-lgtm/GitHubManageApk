@@ -2,7 +2,7 @@
 
 Version 1.0.0 · Pre-release notice
 
-MaxRepo is an independent Android developer workspace maintained by Lomile Dev Hub. This notice describes the current release candidate's intended data handling, based on source review. The pre-release security and dependency audit is not yet complete.
+MaxRepo is an independent Android developer workspace maintained by Lomile Dev Hub. This notice describes the current release candidate's intended data handling, based on source review. Automated secret scanning, resolved Maven dependency scanning and CodeQL workflows passed for the final feature pull request. Final signed-device testing and review remain pending. Automated checks have limited scope and do not certify the app's security.
 
 ## Data and purpose
 
@@ -24,7 +24,7 @@ Local app data stays on the device until you remove it or clear app storage. Sig
 
 ## Third parties and advertising
 
-GitHub and any user-selected network destinations receive requests necessary for the features you use. The reviewed application configuration does not declare advertising or analytics SDKs. A full resolved-dependency review is pending; this notice will be revisited if data handling changes.
+GitHub and any user-selected network destinations receive requests necessary for the features you use. The reviewed application configuration does not declare advertising or analytics SDKs. The resolved Maven dependency audit passed for the final feature pull request. This does not cover every third-party service, plugin or possible data flow; this notice will be revisited if data handling changes.
 
 ## Contact and updates
 
