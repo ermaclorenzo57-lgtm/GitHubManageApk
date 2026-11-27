@@ -81,6 +81,11 @@ def prepare(root):
 
 '''
     buildscript.write_text(pins + buildscript.read_text(encoding="utf-8"), encoding="utf-8")
+    # Kotlin 2.4 removed the deprecated string-based android.kotlinOptions JVM target.
+    app_gradle = root / "app/build.gradle.kts"
+    replace_once(app_gradle, '    kotlinOptions { jvmTarget = "17" }\n', '')
+    with app_gradle.open("a", encoding="utf-8") as f:
+        f.write('\nkotlin {\n    compilerOptions {\n        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)\n    }\n}\n')
     # Do not deserialize cached task outputs from an earlier toolchain.
     props = root / "gradle.properties"
     import re
