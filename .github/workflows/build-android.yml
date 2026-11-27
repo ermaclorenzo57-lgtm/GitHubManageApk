@@ -51,13 +51,13 @@ jobs:
       TASK: ${{ inputs.task || 'assembleDebug' }}
       RUN_TESTS: ${{ (github.event_name == 'push' || github.event_name == 'pull_request' || inputs.run_tests != false) && 'true' || 'false' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
 
       - name: Fetch locator script (only when called from another repo)
         if: ${{ inputs.tools_repo != '' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: ${{ inputs.tools_repo }}
           path: .lomipe_tools
