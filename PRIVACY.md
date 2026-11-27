@@ -1,8 +1,8 @@
 # MaxRepo privacy notice
 
-Version 1.0.0 · Pre-release notice
+Version 1.0.0 · Public release notice
 
-MaxRepo is an independent Android developer workspace maintained by Lomile Dev Hub. This notice describes the current release candidate's intended data handling, based on source review. Automated secret scanning, resolved Maven dependency scanning and CodeQL workflows passed for the final feature pull request. Final signed-device testing and review remain pending. Automated checks have limited scope and do not certify the app's security.
+MaxRepo is an independent Android developer workspace maintained by Lomile Dev Hub. This notice describes the current release's intended data handling, based on source review. Automated secret scanning, resolved Maven dependency scanning and CodeQL workflows passed for the final feature pull request. Production signing passed; the maintainer reported successful device testing. Ongoing security and license review remains important. Automated checks have limited scope and do not certify the app's security.
 
 ## Data and purpose
 
@@ -30,7 +30,7 @@ GitHub and any user-selected network destinations receive requests necessary for
 
 For general privacy questions use [GitHub Issues](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/issues) without including private data. For security or sensitive issues use the private reporting process in [SECURITY.md](SECURITY.md). Do not share tokens, passwords, private keys, or private repository contents publicly.
 
-This notice describes the release candidate, not a certification of compliance or a guarantee of security. Review the current notice when installing future versions.
+This notice describes the release, not a certification of compliance or a guarantee of security. Review the current notice when installing future versions.
 
 ## Repository administration and support
 

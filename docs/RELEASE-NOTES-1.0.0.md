@@ -1,23 +1,15 @@
-# MaxRepo v1.0.0 — release notes (prepared, not published)
+# MaxRepo 1.0.0 — public release
 
-Build. Manage. Ship. Anywhere.
+Released November 28, 2026. Build. Manage. Ship. Anywhere.
 
-My first public version brings GitHub repositories, build monitoring, APK downloads and a local developer workspace to Android.
+- Repository, profile, branch, Pages, collaborator, variable and release management.
+- GitHub Actions monitoring, APK downloads and package inspection.
+- Developer Studio, local source tools and encrypted signing key generation.
+- Android Keystore-backed token storage, light and dark themes, optional project support.
+- Some administrative actions use GitHub's own interface.
 
-- Repository management and GitHub Actions monitoring.
-- APK package, checksum and signing compatibility inspection.
-- Local Studio tools for source editing, project inspection and release signing.
-- Classic or fine-grained GitHub token support and Android Keystore-backed credential storage.
-- New original dog-and-folder launcher artwork, light and dark themes.
+Android 10+. Independent project, not affiliated with GitHub.
 
-Requires Android 10+. GitHub operations require internet and appropriate permissions. This is an independent project, not affiliated with GitHub.
+[Download APK](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases/download/1.0.0/MaxRepo-v1.0.0.apk) · [SHA256SUMS](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases/download/1.0.0/SHA256SUMS) · [Release](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases/tag/1.0.0)
 
-## Release assets
-
-Last verified signed build: run 46029050038, code 10002. Security remediation candidate: code 10005, pending build, signing and release checks. Package com.lomipe.devhub. Publish the final verified candidate only, not the earlier build. Publish only the verified production APK and matching SHA256SUMS after passing release gates. Never distribute app-debug.apk as the official release.
-
-## Before publication
-
-Complete the security scans, device update test, main branch protection, license and privacy review. Verify the exact artifact and checksum and retain the permanent signing key. Do not publish a candidate that has unresolved security findings.
-
-- Repository management expansion and optional support section (pending final validation).
+Public tag: 1.0.0. Package com.lomipe.devhub. Intended build code 10005. Production workflow #7 (46041698332) successfully signed source commit 23ddc015a0bae93bfb7232c35cb368aade871111. The maintainer reported successful phone testing. GitHub reports the uploaded APK SHA-256 as dfdb3683973f6b233cbe40973276f3d645bd398e9655fc9c4dd5b8366ef01b9e; the checksum asset digest matches the expected 85-byte checksum text for this APK. Independent byte-for-byte comparison against the production artifact and full license review have not been completed here. Retain the permanent signing key and do not distribute debug APKs.
