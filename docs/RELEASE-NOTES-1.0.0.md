@@ -14,7 +14,7 @@ Requires Android 10+. GitHub operations require internet and appropriate permiss
 
 ## Release assets
 
-Last verified signed build: run 46029050038, code 10002. Security remediation candidate: code 10003, pending build, signing and release checks. Package com.lomipe.devhub. Publish the final verified candidate only, not the earlier build. Publish only the verified production APK and matching SHA256SUMS after passing release gates. Never distribute app-debug.apk as the official release.
+Last verified signed build: run 46029050038, code 10002. Security remediation candidate: code 10004, pending build, signing and release checks. Package com.lomipe.devhub. Publish the final verified candidate only, not the earlier build. Publish only the verified production APK and matching SHA256SUMS after passing release gates. Never distribute app-debug.apk as the official release.
 
 ## Before publication
 

@@ -53,6 +53,40 @@ def prepare(root):
         '<shape xmlns:android="http://schemas.android.com/apk/res/android">\n'
         '    <gradient android:startColor="#113D80" android:endColor="#36A2D4" android:angle="90" />\n'
         '</shape>\n', encoding="utf-8")
+    # Security remediation of the Gradle buildscript, separate from APK runtime dependencies.
+    buildscript = root / "build.gradle.kts"
+    replace_once(buildscript, 'id("org.jetbrains.kotlin.android") version "2.0.21"', 'id("org.jetbrains.kotlin.android") version "2.4.21"')
+    replace_once(buildscript, 'id("org.jetbrains.kotlin.plugin.compose") version "2.0.21"', 'id("org.jetbrains.kotlin.plugin.compose") version "2.4.21"')
+    pins = r'''buildscript {
+    configurations.getByName("classpath").resolutionStrategy.eachDependency {
+        val group = requested.group
+        val name = requested.name
+        val version = when {
+            group == "io.netty" && requested.version?.startsWith("4.1.") == true -> "4.1.141.Final"
+            group == "org.bouncycastle" && name.endsWith("-jdk18on") -> "1.87"
+            group == "com.google.guava" && name == "guava" -> "33.7.2-jre"
+            group == "com.google.protobuf" && name == "protobuf-java" -> "3.25.8"
+            group == "commons-io" && name == "commons-io" -> "2.20.0"
+            group == "org.apache.commons" && name == "commons-compress" -> "1.28.0"
+            group == "org.bitbucket.b_c" && name == "jose4j" -> "0.9.6"
+            group == "org.jdom" && name == "jdom2" -> "2.0.6.1"
+            else -> null
+        }
+        if (version != null) {
+            useVersion(version)
+            because("MaxRepo build dependency security remediation; verified by resolved dependency audit")
+        }
+    }
+}
+
+'''
+    buildscript.write_text(pins + buildscript.read_text(encoding="utf-8"), encoding="utf-8")
+    # Do not deserialize cached task outputs from an earlier toolchain.
+    props = root / "gradle.properties"
+    import re
+    old_props = props.read_text(encoding="utf-8") if props.exists() else ""
+    old_props = re.sub(r"(?m)^org\\.gradle\\.caching=.*\\n?", "", old_props)
+    props.write_text(old_props.rstrip() + "\norg.gradle.caching=false\n", encoding="utf-8")
     print("Public beta candidate overlay applied. Android tests are still required.")
 
 if __name__ == "__main__":
