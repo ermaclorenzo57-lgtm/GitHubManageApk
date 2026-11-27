@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="#get-maxrepo"><img alt="Get MaxRepo — coming soon" src="https://img.shields.io/badge/Download-Coming%20soon-2376d9?style=for-the-badge"></a>
+  <a href="https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases/download/1.0.0/MaxRepo-v1.0.0.apk"><img alt="Download MaxRepo 1.0.0" src="https://img.shields.io/badge/Download-APK-2376d9?style=for-the-badge"></a>
   <img alt="Version 1.0.0" src="https://img.shields.io/badge/Version-1.0.0-30363d?style=for-the-badge">
   <img alt="Android 10 and above" src="https://img.shields.io/badge/Android-10%2B-258450?style=for-the-badge">
 </p>
@@ -45,17 +45,17 @@ Some operations depend on your GitHub permissions, network connection and projec
 
 ## Get MaxRepo
 
-**Version 1.0.0 — first release in preparation.**
+**Version 1.0.0 is available.**
 
-The signed release candidate has passed automated signing, build and package verification. I'm finishing the security review and real-device testing before making the official APK available.
+[Download the signed APK (26.4 MiB)](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases/download/1.0.0/MaxRepo-v1.0.0.apk) · [SHA-256 checksums](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases/download/1.0.0/SHA256SUMS) · [Official release](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases/tag/1.0.0)
 
-[View releases](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/releases) · [Release notes](CHANGELOG.md)
+The production signing workflow passed and the maintainer reported successful physical-device testing. The public release uses tag `1.0.0`. Only install from trusted sources.
 
 **Requirements:** Android 10 or newer. GitHub features need an internet connection and a GitHub account. Local tools can be used without signing in.
 
 ## Getting started
 
-1. After the official release, download the signed APK from this project's Releases page.
+1. Download the signed APK from this project's Releases page.
 2. Install it using Android's package installer. Only allow installation from a trusted source.
 3. Open MaxRepo and connect GitHub in Settings if you want to manage repositories.
 4. Use a classic or fine-grained personal access token with only the permissions you need.
@@ -79,9 +79,9 @@ Earlier interface previews, with account identifiers and private repository name
 
 I take the protection of developer accounts seriously. MaxRepo uses Android Keystore-backed token storage and HTTPS for GitHub communication. The APK signing tools create encrypted keystores locally. Never share a personal access token, signing password or private key.
 
-Automated build, secret scanning, dependency audit, CodeQL and emulator workflows passed for the final candidate's feature pull request. Physical-device verification and release review remain pending. I won't claim that the app is completely secure simply because automated tests pass.
+Automated build, secret scanning, dependency audit, CodeQL and emulator workflows passed for the final candidate's feature pull request. The maintainer reported successful physical-device testing. These checks do not replace ongoing security and license review. I won't claim that the app is completely secure simply because automated tests pass.
 
-[Privacy notice (pre-release)](PRIVACY.md) · [Security reporting](SECURITY.md) · [Audit progress](docs/SECURITY-AUDIT-1.0.md)
+[Privacy notice](PRIVACY.md) · [Security reporting](SECURITY.md) · [Audit progress](docs/SECURITY-AUDIT-1.0.md)
 
 ## Frequently asked questions
 
