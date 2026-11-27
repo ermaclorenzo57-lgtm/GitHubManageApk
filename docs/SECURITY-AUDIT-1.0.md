@@ -18,3 +18,9 @@ Initial audit: [run 46035073389](https://github.com/ermaclorenzo57-lgtm/GitHubMa
 - Remaining: remediate or formally assess build-only advisory matches, review CodeQL, dependency integrity and license inventory, confirm device behavior, and protect main.
 
 No official release is approved by this report. Never publish debug APKs or skip audit gates to force a release.
+
+## Second audit and remediation branch
+
+The main-branch run 46035336193 reported 241 coordinates and 61 advisory matches, all in the Gradle buildscript scope. No matches were reported in the resolved release compile/runtime scopes. CodeQL and build workflows completed successfully; inspect alerts separately.
+
+This branch upgrades Kotlin and Compose compiler plugins to 2.4.21 (GHSA-r937-wjx7-w2jp), and pins patched buildscript libraries for Netty, Bouncy Castle, Guava, protobuf, Commons IO/Compress, jose4j, and JDOM. Pins are scoped to the buildscript; app runtime Bouncy Castle remains 1.87. Gradle build cache disabled. Candidate version code 10004, display 1.0.0. Compatibility and OSV results must be verified by CI. No advisories are suppressed or marked resolved before results.

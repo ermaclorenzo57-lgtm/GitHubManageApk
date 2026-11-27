@@ -14,7 +14,7 @@ jobs:
     environment: maxrepo-production
     env:
       LOMIPE_VERSION_NAME: '1.0.0'
-      LOMIPE_VERSION_CODE: '10003'
+      LOMIPE_VERSION_CODE: '10004'
     steps:
       - uses: actions/checkout@v4
         with:
