@@ -1,6 +1,6 @@
 # MaxRepo 1.0 release gate
 
-Display version 1.0.0. Verified candidate version code 10001, package com.lomipe.devhub.
+Display version 1.0.0. Verified candidate version code 10002, package com.lomipe.devhub.
 
 ## Verified
 - [x] Production key configured and matching certificate verified.
@@ -8,7 +8,10 @@ Display version 1.0.0. Verified candidate version code 10001, package com.lomipe
 - [x] Version, package identity and checksum verified; production artifact uploaded.
 - [x] Android API 29 and 35 emulator tests passed on the signing-tool source at commit e037371, [test run](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46016317640).
 
+- [x] Build 10002 passed production signing and verification in [run 46029050038](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/actions/runs/46029050038).
+
 ## Security and privacy
+- [x] Added automated audit workflow and CodeQL configuration; execution and findings review pending.
 - [ ] Scan current source, both legacy ZIPs and public Git history for secrets; revoke and rotate any exposed credentials.
 - [ ] Verify account isolation, logout, redacted logs, cache, redirect and exported file behavior.
 - [ ] Review dependencies, actions and third-party licenses; check permissions and update installation handling.

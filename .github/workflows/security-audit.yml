@@ -1,0 +1,68 @@
+name: MaxRepo security audit
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * 1'
+permissions:
+  contents: read
+jobs:
+  secret-scan:
+    name: MaxRepo secret scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Redacted Git history and archive scanning
+        run: |
+          set -euo pipefail
+          image=ghcr.io/gitleaks/gitleaks:v8.30.1@sha256:b109bc5f8f76a38196a3e413704fc5b9e3c32360bce4e4b603bd6f45b3721dbb
+          mkdir -p "$RUNNER_TEMP/archive-audit"
+          python3 tools/audit_history_archives.py "$RUNNER_TEMP/archive-audit"
+          docker run --rm -v "$PWD:/repo:ro" -e GIT_CONFIG_COUNT=1 -e GIT_CONFIG_KEY_0=safe.directory -e GIT_CONFIG_VALUE_0=/repo "$image" git /repo --log-opts="--all" --redact=100 --no-banner --max-archive-depth=2
+          docker run --rm -v "$RUNNER_TEMP/archive-audit:/archives:ro" "$image" dir /archives --redact=100 --no-banner --max-archive-depth=3
+  dependencies:
+    name: MaxRepo dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Assemble actual Android source
+        id: locate
+        run: python3 tools/locate_project.py
+      - name: Prepare candidate
+        env:
+          PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
+        run: python3 tools/prepare_public_beta.py "$PROJECT_DIR"
+      - name: Check distribution checksum and resolve dependencies
+        env:
+          PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
+        run: |
+          set -euo pipefail
+          mkdir -p audit-results
+          python3 tools/check_gradle_wrapper.py "$PROJECT_DIR"
+          chmod +x "$PROJECT_DIR/gradlew"
+          "$PWD/$PROJECT_DIR/gradlew" -p "$PROJECT_DIR" --no-daemon -I "$PWD/tools/audit_dependencies.gradle" -Dmaxrepo.audit.output="$PWD/audit-results/dependencies.tsv" maxrepoAuditDependencies
+      - name: Query known vulnerabilities and generate SBOM
+        run: python3 tools/audit_osv.py audit-results
+      - name: Upload public dependency inventory (no credentials)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maxrepo-dependency-audit
+          path: audit-results/
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,44 @@
+name: MaxRepo CodeQL
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  analyze:
+    name: MaxRepo CodeQL analysis
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Locate assembled source
+        id: locate
+        run: python3 tools/locate_project.py
+      - name: Prepare Android project
+        env:
+          PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
+        run: |
+          python3 tools/prepare_public_beta.py "$PROJECT_DIR"
+          python3 tools/check_gradle_wrapper.py "$PROJECT_DIR"
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: java-kotlin
+          build-mode: manual
+          queries: security-extended
+      - name: Compile Kotlin and Java
+        working-directory: ${{ steps.locate.outputs.project_dir }}
+        run: chmod +x gradlew && ./gradlew --no-daemon --no-build-cache --rerun-tasks assembleDebug
+      - uses: github/codeql-action/analyze@v4
+        with:
+          category: /language:java-kotlin

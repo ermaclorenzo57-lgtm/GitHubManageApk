@@ -1,0 +1,34 @@
+import org.gradle.api.artifacts.component.ModuleComponentIdentifier
+import org.gradle.api.artifacts.result.UnresolvedDependencyResult
+
+gradle.projectsEvaluated {
+    rootProject.tasks.register('maxrepoAuditDependencies') {
+        doLast {
+            def rows = new TreeSet<String>()
+            def scan = { cfg, scope ->
+                if (cfg == null || !cfg.canBeResolved) return
+                def result = cfg.incoming.resolutionResult
+                def failures = result.allDependencies.findAll { it instanceof UnresolvedDependencyResult }
+                if (!failures.empty) throw new GradleException("Unresolved dependencies in " + scope)
+                result.allComponents.each { c ->
+                    if (c.id instanceof ModuleComponentIdentifier) {
+                        rows.add([scope, c.id.group, c.id.module, c.id.version].join('\t'))
+                    }
+                }
+            }
+            def app = rootProject.project(':app')
+            ['releaseRuntimeClasspath','releaseCompileClasspath'].each { n ->
+                def cfg = app.configurations.getByName(n)
+                scan(cfg, n)
+            }
+            rootProject.allprojects.each { p ->
+                scan(p.buildscript.configurations.findByName('classpath'), "buildscript:" + p.path)
+            }
+            if (!rows.any { it.startsWith('releaseRuntimeClasspath\t') })
+                throw new GradleException("No release runtime dependencies resolved")
+            def dest = new File(System.getProperty('maxrepo.audit.output'))
+            dest.parentFile.mkdirs()
+            dest.text = rows.join('\n') + '\n'
+        }
+    }
+}
