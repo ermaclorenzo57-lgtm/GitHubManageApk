@@ -28,6 +28,8 @@ def prepare(root):
         raise SystemExit("Manifest security guard failed")
     from beta2 import apply
     apply(root)
+    from phase3 import apply as apply_phase3
+    apply_phase3(root)
     print("Public beta candidate overlay applied. Android tests are still required.")
 
 if __name__ == "__main__":

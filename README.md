@@ -1,8 +1,8 @@
-# Lomile Dev Hub
+# MaxRepo
 
-**Your development workspace. In your pocket.**
+**Build. Manage. Ship. Anywhere.**
 
-An Android-first workspace for GitHub repositories, Actions runs, APK artifacts, and mobile development. The current source archive is v3.0. The proposed public beta is 3.1.0-beta.2 (version code 5), pending validation.
+An independent GitHub mobile workspace for Android developers: manage repositories, monitor Actions, download artifacts, access quick developer tools, and work from your phone. Not affiliated with GitHub. The current source archive is v3.0. The proposed public beta is 3.2.0-beta.1 (version code 6), pending validation.
 
 ## Public beta status
 

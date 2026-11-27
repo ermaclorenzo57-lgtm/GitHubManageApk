@@ -71,19 +71,19 @@ jobs:
           [ -f "$SCRIPT" ] || SCRIPT=.lomipe_tools/tools/locate_project.py
           python3 "$SCRIPT" --project-dir "$PROJECT_DIR"
 
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
       - name: Prepare beta candidate (Dev Hub only)
         if: ${{ github.repository == 'ermaclorenzo57-lgtm/GitHubManageApk' && inputs.tools_repo == '' }}
         env:
           PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
         run: |
           python3 tools/prepare_public_beta.py "$PROJECT_DIR"
-          echo "LOMIPE_VERSION_CODE=5" >> "$GITHUB_ENV"
-          echo "LOMIPE_VERSION_NAME=3.1.0-beta.2" >> "$GITHUB_ENV"
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
+          echo "LOMIPE_VERSION_CODE=6" >> "$GITHUB_ENV"
+          echo "LOMIPE_VERSION_NAME=3.2.0-beta.1" >> "$GITHUB_ENV"
 
       - uses: gradle/actions/setup-gradle@v4
 

@@ -14,8 +14,8 @@ jobs:
       matrix:
         api: [29, 35]
     env:
-      LOMIPE_VERSION_CODE: 5
-      LOMIPE_VERSION_NAME: 3.1.0-beta.2
+      LOMIPE_VERSION_CODE: 6
+      LOMIPE_VERSION_NAME: 3.2.0-beta.1
     steps:
       - uses: actions/checkout@v4
         with:

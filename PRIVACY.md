@@ -1,6 +1,6 @@
 # Privacy notice — draft for beta review
 
-Lomile Dev Hub is a proposed Android application for interacting with GitHub. This draft must be checked against the actual release build before publication.
+MaxRepo is a proposed Android application for interacting with GitHub. This draft must be checked against the actual release build before publication.
 
 - GitHub account identifiers, settings, repository selections and history may be stored locally. Source inspection shows GitHub tokens encrypted using Android Keystore with app-private storage and backups disabled.
 - Network requests for GitHub features are sent to GitHub. Artifact downloads may follow redirects to hosting endpoints; the HTTP client is designed not to forward GitHub credentials outside its trusted destinations.
