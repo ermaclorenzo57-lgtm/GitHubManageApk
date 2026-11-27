@@ -2,7 +2,7 @@
 
 **Build. Manage. Ship. Anywhere.**
 
-An independent GitHub mobile workspace for Android developers: manage repositories, monitor Actions, download artifacts, access quick developer tools, and work from your phone. Not affiliated with GitHub. The current source archive is v3.0. The proposed public beta is 3.2.0-beta.1 (version code 6), pending validation.
+An independent GitHub mobile workspace for Android developers: manage repositories, monitor Actions, download artifacts, access quick developer tools, and work from your phone. Not affiliated with GitHub. The current source archive is v3.0. The first public release candidate is 1.0.0 (version code 10000), pending validation.
 
 ## Public beta status
 
@@ -18,3 +18,5 @@ Use a narrowly scoped GitHub token for only the repositories you intend to manag
 [Beta guide](docs/BETA-TESTING.md) · [Privacy draft](PRIVACY.md) · [Changelog](CHANGELOG.md) · [Landing page source](docs/index.html)
 
 Build artifacts are development builds until release approval. The source repository currently is public and contains source archives. A separate releases-only repository is planned; visibility and distribution have not been changed by this preparation.
+
+[Production signing and upgrade guide](docs/MAXREPO-1.0-SIGNING.md)

@@ -1,5 +1,12 @@
 # Changelog
 
+## MaxRepo 1.0.0 — official release candidate
+- Public version reset; internal version code raised to 10000, preserving package identity.
+- Neutral classic and fine-grained GitHub token guidance.
+- Protected manual production-signing workflow, certificate fingerprint verification and APK checksum.
+- Production key setup, physical-device update testing and publishing remain pending.
+
+
 ## MaxRepo 3.2.0-beta.1 — Phase 3 candidate
 - Rebrand display name and launcher art; preserve application ID and storage compatibility.
 - GitHub-inspired dark/light palettes, five aligned navigation tabs, settings in header, dashboard, repo cards, filtered Actions cards, grouped Studio, files empty state.

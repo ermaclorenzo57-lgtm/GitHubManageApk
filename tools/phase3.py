@@ -83,4 +83,14 @@ fun BuildsScreen(vm: AppViewModel) = MaxBuilds(vm)
             if name.startswith("classes/com/sun/net/httpserver/") and name.endswith(".class"):
                 dest.writestr(name.removeprefix("classes/"), src.read(name))
     edit(app / "build.gradle.kts", lambda s: once(s, 'testImplementation("junit:junit:4.13.2")', 'testImplementation("junit:junit:4.13.2")\n    testCompileOnly(files("build/maxrepo-test-support/jdk-httpserver-api.jar"))'))
-    print("MaxRepo Phase 3 UI and JVM test classpath prepared.")
+    # Both classic and fine-grained PATs are accepted by the existing GitHub authentication client.
+    def token_copy(s):
+        s = between(s, '    Note("Start with read access.', '    OutlinedTextField(value = token', '''    Note("Connect using a GitHub personal access token (classic or fine-grained).")
+    TextButton(onClick = { Intents.openGitHubUrl(ctx, "https://github.com/settings/tokens") }) { Text("Manage GitHub tokens") }
+    Note("Classic: use repo for private repositories, or public_repo for public-only access. Add workflow only when editing workflow files. Fine-grained: select your repositories and grant Contents and Actions access as needed; grant Workflows write only if needed. Some operations or organizations have additional restrictions. Prefer limited access and expiration.")
+''')
+        return s
+    edit(ui / "MainScreens.kt", token_copy)
+    # Keep local history and credentials intact; only clear stale cached release metadata after the rebrand.
+    edit(ui / "UpdateState.kt", lambda s: s.replace('getSharedPreferences("release_check"', 'getSharedPreferences("maxrepo_release_check_v1"'))
+    print("MaxRepo 1.0 UI and JVM test classpath prepared.")

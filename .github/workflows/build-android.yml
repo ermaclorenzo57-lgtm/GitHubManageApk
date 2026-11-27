@@ -82,8 +82,8 @@ jobs:
           PROJECT_DIR: ${{ steps.locate.outputs.project_dir }}
         run: |
           python3 tools/prepare_public_beta.py "$PROJECT_DIR"
-          echo "LOMIPE_VERSION_CODE=6" >> "$GITHUB_ENV"
-          echo "LOMIPE_VERSION_NAME=3.2.0-beta.1" >> "$GITHUB_ENV"
+          echo "LOMIPE_VERSION_CODE=10000" >> "$GITHUB_ENV"
+          echo "LOMIPE_VERSION_NAME=1.0.0" >> "$GITHUB_ENV"
 
       - uses: gradle/actions/setup-gradle@v4
 
@@ -101,6 +101,12 @@ jobs:
             ./gradlew --no-daemon testDebugUnitTest && exit 0
             echo "Attempt $i failed, waiting before retry"; sleep $((i*60))
           done
+          exit 1
+
+      - name: Reject production signing in general CI
+        if: env.TASK == 'assembleRelease' && github.repository == 'ermaclorenzo57-lgtm/GitHubManageApk'
+        run: |
+          echo 'Use the protected MaxRepo production signing workflow.'
           exit 1
 
       - name: Configure release signing (manual main only)

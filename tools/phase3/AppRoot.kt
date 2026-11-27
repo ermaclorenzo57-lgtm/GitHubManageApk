@@ -82,9 +82,9 @@ fun AppRoot(vm: AppViewModel, onRequestNotifications: () -> Unit) {
                     Card(Modifier.fillMaxWidth()) {
                         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text("Connect GitHub", style = MaterialTheme.typography.titleMedium)
-                            Note("Use a fine-grained token restricted to the repositories you choose. Start with read-only access; enable write permissions only for actions you need.")
+                            Note("Connect with a GitHub personal access token (classic or fine-grained). Grant only the access needed for your work.")
                             Button(onClick = { settings() }, modifier = Modifier.fillMaxWidth()) { Text("Connect account") }
-                            TextButton(onClick = { Intents.openGitHubUrl(ctx, "https://github.com/settings/personal-access-tokens/new") }) { Text("Create a GitHub token") }
+                            TextButton(onClick = { Intents.openGitHubUrl(ctx, "https://github.com/settings/tokens") }) { Text("Manage GitHub tokens") }
                         }
                     }
                     Spacer(Modifier.height(12.dp))
