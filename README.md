@@ -17,6 +17,7 @@
   <a href="#get-maxrepo">Download</a> ·
   <a href="#getting-started">Getting started</a> ·
   <a href="#security--privacy">Security</a> ·
+  <a href="#about-the-developer">About me</a> ·
   <a href="#feedback">Feedback</a>
 </p>
 
@@ -83,6 +84,16 @@ The security audit is still in progress. I won't claim that the app is completel
 **Can I use private repositories?** Yes, when your token and organization settings allow the requested operation.
 
 **How do updates work?** Official APKs are intended to use the same signing identity. Android may reject development builds signed with a different key.
+
+## About the Developer
+
+Hi! I'm an independent developer with a passion for software development, technology, and creating useful applications.
+
+I started MaxRepo because I wanted to make development more accessible, especially for people who rely on their smartphones instead of computers.
+
+I believe that limited resources shouldn't limit creativity. Through my projects, I hope to help aspiring developers turn their ideas into reality.
+
+MaxRepo is one of my projects, and I'm continuously learning, experimenting, and improving it.
 
 ## Feedback
 
