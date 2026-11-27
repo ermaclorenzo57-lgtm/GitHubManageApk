@@ -31,3 +31,7 @@ GitHub and any user-selected network destinations receive requests necessary for
 For general privacy questions use [GitHub Issues](https://github.com/ermaclorenzo57-lgtm/GitHubManageApk/issues) without including private data. For security or sensitive issues use the private reporting process in [SECURITY.md](SECURITY.md). Do not share tokens, passwords, private keys, or private repository contents publicly.
 
 This notice describes the release candidate, not a certification of compliance or a guarantee of security. Review the current notice when installing future versions.
+
+## Repository administration and support
+
+Repository and profile management sends requested changes to GitHub using the authenticated API. Do not put credentials in ordinary variables. Secret value creation and other advanced settings use GitHub's own interface. MaxRepo does not process donations or store payment data; no payment destination is currently configured.

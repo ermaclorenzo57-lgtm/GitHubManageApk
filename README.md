@@ -19,6 +19,7 @@
   <a href="#getting-started">Getting started</a> ·
   <a href="#security--privacy">Security</a> ·
   <a href="#about-the-developer">About me</a> ·
+  <a href="#support-maxrepo">Support</a> ·
   <a href="#feedback">Feedback</a>
 </p>
 
@@ -95,6 +96,10 @@ I started MaxRepo because I wanted to make development more accessible, especial
 I believe that limited resources shouldn't limit creativity. Through my projects, I hope to help aspiring developers turn their ideas into reality.
 
 MaxRepo is one of my projects, and I'm continuously learning, experimenting, and improving it.
+
+## Support MaxRepo
+
+I'm building MaxRepo to make mobile development more accessible. The core app is free, and supporting it is completely optional. I appreciate feedback, bug reports and GitHub stars. A donation option may be added later; I haven't configured any payment link yet.
 
 ## Feedback
 
